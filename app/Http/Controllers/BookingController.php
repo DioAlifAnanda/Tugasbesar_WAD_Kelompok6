@@ -23,23 +23,17 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required',
-            'status' => 'required',
-        ]);
+        $user = $request->user();
+        $bookingData = [
+            'user_id' => $user->id,
+            'status' => 'active',
+            // Add other booking data (date, time, etc.)
+        ];
 
-        // Create a new Appointment instance with the validated data
-        $appointment = new Appointment($validatedData);
+        // Save the booking to the database
+        Booking::create($bookingData);
 
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            // Associate the appointment with the authenticated user
-            Auth::user()->appointments()->save($appointment);
-        }
-
-        // Save the appointment to the database
-        $appointment->save();
-
-        // Optionally, you can redirect the user or return a response
+        // You may want to redirect back or to a confirmation page
+        return redirect()->back()->with('success', 'Booking successful!');
     }
 }

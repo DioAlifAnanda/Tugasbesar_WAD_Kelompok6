@@ -19,7 +19,13 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            @if (auth()->check() && auth()->user()->is_admin)
+                <!-- Include admin navigation -->
+                @include('layouts.admin-navigation')
+            @else
+                <!-- Include regular navigation -->
+                @include('layouts.navigation')
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))
@@ -35,5 +41,11 @@
                 {{ $slot }}
             </main>
         </div>
+        {{-- Footer Section --}}
+        <footer class="bg-gray-800 text-white p-4">
+            <div class="max-w-7xl mx-auto text-center">
+                <p>&copy; 2023 Your Website. All rights reserved.</p>
+            </div>
+        </footer>
     </body>
 </html>

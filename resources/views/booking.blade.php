@@ -32,18 +32,20 @@
             <div class="bg-white dark:bg-gray-800 shadow p-6 rounded-lg">
                 <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200">Book an Appointment</h3>
 
-                <!-- Your booking form goes here -->
-                <!-- Add form fields like date, time, etc. -->
+                <form action="{{ route('booking.store') }}" method="post">
+                    @csrf
+                    <!-- Add form fields like date, time, etc. -->
 
-                @auth
-                    <!-- If the user is authenticated, show the Book Now button -->
-                    <button type="submit" id="bookNowBtn" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Book Now
-                    </button>
-                @else
-                    <!-- If the user is not authenticated, show a login link -->
-                    <p class="mt-4">Please <a href="{{ route('login') }}"><b>login</b></a> to book an appointment.</p>
-                @endauth
+                    @auth
+                        <!-- If the user is authenticated, show the Book Now button -->
+                        <button type="submit" id="bookNowBtn" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Book Now
+                        </button>
+                    @else
+                        <!-- If the user is not authenticated, show a login link -->
+                        <p class="mt-4">Please <a href="{{ route('login') }}"><b>login</b></a> to book an appointment.</p>
+                    @endauth
+                </form>
             </div>
         </div>
     </div>
